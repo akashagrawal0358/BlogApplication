@@ -1,13 +1,17 @@
 
 const express = require('express');
 const dotenv = require('dotenv');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 
 const dbConn = require('./db/conn.js');
 const router = require('./routes/route.js')
 
-dotenv.config() ;
-
 const app = express() ;
+dotenv.config() ;
+app.use(cors()) ;
+app.use(bodyParser.json({extended : true}));
+
 // app.use(cors());
 // app.use(express.json());
 
@@ -21,6 +25,4 @@ dbConn(username, password);
 app.use('/', router) ;
 
 
-app.listen(PORT,()=>{
-    console.log("hellloo");
-})
+app.listen(PORT, () => console.log(`Server is running successfully on PORT ${PORT}`));
