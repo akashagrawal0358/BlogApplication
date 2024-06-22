@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import { TextField, Box, Button, Typography, styled } from '@mui/material';
 import { API } from '../service/api';
-
+import {DataContext, DataProvider} from '../context/DataProvider';
 
 
 
@@ -79,12 +79,18 @@ const Login = () => {
     const [signup, setSignup] = useState(signupInitialValues);
     const [error, showError] = useState('');
     const [account, toggleAccount] = useState('login');
+    
+    // Value in setAccount is globally available
+    const {setAccount} = useContext(DataContext);
+
 
     const imageURL = 'https://www.sesta.it/wp-content/uploads/2021/03/logo-blog-sesta-trasparente.png';
 
     useEffect(() => {
         showError(false);
     }, [login])
+
+
 
     const onValueChange = (e) => {
         setLogin({ ...login, [e.target.name]: e.target.value });
@@ -95,27 +101,30 @@ const Login = () => {
     }
 
      const loginUser = async () => {
-    //   //  let response = await API.userLogin(login);
-    //     if (response.isSuccess) {
-    //         showError('');
+        let response = await API.userLogin(login);
+        if (response.isSuccess) {
+            showError('');
 
-    //         sessionStorage.setItem('accessToken', `Bearer ${response.data.accessToken}`);
-    //         sessionStorage.setItem('refreshToken', `Bearer ${response.data.refreshToken}`);
-    //       //  setAccount({ name: response.data.name, username: response.data.username });
+            sessionStorage.setItem('accessToken', `Bearer ${response.data.accessToken}`);
+            sessionStorage.setItem('refreshToken', `Bearer ${response.data.refreshToken}`);
+            setAccount({ name: response.data.name, username: response.data.username });
             
     //         isUserAuthenticated(true)
     //         setLogin(loginInitialValues);
     //         navigate('/');
-    //     } else {
-    //         showError('Something went wrong! please try again later');
-    //     }
-    }
+        } else {
+            showError('Something went wrong! please try again later');
+        }
+    
+}
 
 
 // --------------------------------- Signup User ----------------------------------------------------------
  
      const signupUser = async () => {
+        // signup contains user signup data
            let response = await API.userSignup(signup);
+           
         if (response.isSuccess) {
             showError('');
             setSignup(signupInitialValues);
@@ -140,8 +149,8 @@ const Login = () => {
                 {
                     account === 'login' ?
                         <Wrapper>
-                            <TextField variant="standard" value={login.username} onChange={(e) => onValueChange(e)} name='username' label='Enter Username' />
-                            <TextField variant="standard" value={login.password} onChange={(e) => onValueChange(e)} name='password' label='Enter Password' />
+                            <TextField variant="standard" value={login.username || ''} onChange={(e) => onValueChange(e)} name='username' label='Enter Username' />
+                            <TextField variant="standard" value={login.password || ''} onChange={(e) => onValueChange(e)} name='password' label='Enter Password' />
 
                             {error && <Error>{error}</Error>}
 
@@ -151,9 +160,9 @@ const Login = () => {
                         </Wrapper> 
                         :
                         <Wrapper>
-                            <TextField variant="standard" onChange={(e) => onInputChange(e)} name='name'     label='Enter Name' />
-                            <TextField variant="standard" onChange={(e) => onInputChange(e)} name='username' label='Enter Username' />
-                            <TextField variant="standard" onChange={(e) => onInputChange(e)} name='password' label='Enter Password' />
+                            <TextField variant="standard"  value={signup.name || ''}     onChange={(e) => onInputChange(e)} name='name'     label='Enter Name' />
+                            <TextField variant="standard"  value={signup.username || ''} onChange={(e) => onInputChange(e)} name='username' label='Enter Username' />
+                            <TextField variant="standard"  value={signup.password || ''} onChange={(e) => onInputChange(e)} name='password' label='Enter Password' />
 
                             <SignupButton onClick={() => signupUser()} >Signup</SignupButton>
                             
