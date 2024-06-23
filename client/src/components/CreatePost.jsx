@@ -117,6 +117,7 @@ const CreatePost = () => {
                 <input
                     type="file"
                     id="fileInput"
+                    style={{ display: "none" }}
                     onChange={(e) => setFile(e.target.files[0])}
                 />
                 <InputTextField
