@@ -2,7 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 
 import { TextField, Box, Button, Typography, styled } from '@mui/material';
 import { API } from '../service/api';
-import {DataContext, DataProvider} from '../context/DataProvider';
+import {DataContext} from '../context/DataProvider';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -61,8 +62,6 @@ const Error = styled(Typography)`
 `
 
 
-
-
 const loginInitialValues = {
     username: '',
     password: ''
@@ -74,12 +73,16 @@ const signupInitialValues = {
     password: '',
 };
 
-const Login = () => {
+
+
+const Login = ( {isUserAuthenticated} ) => {
     const [login, setLogin] = useState(loginInitialValues);
     const [signup, setSignup] = useState(signupInitialValues);
     const [error, showError] = useState('');
     const [account, toggleAccount] = useState('login');
     
+    const navigate = useNavigate()
+
     // Value in setAccount is globally available
     const {setAccount} = useContext(DataContext);
 
@@ -109,9 +112,10 @@ const Login = () => {
             sessionStorage.setItem('refreshToken', `Bearer ${response.data.refreshToken}`);
             setAccount({ name: response.data.name, username: response.data.username });
             
-    //         isUserAuthenticated(true)
+            // when user successfully login --> then user is authenticated  
+            isUserAuthenticated(true)
     //         setLogin(loginInitialValues);
-    //         navigate('/');
+               navigate('/');
         } else {
             showError('Something went wrong! please try again later');
         }
