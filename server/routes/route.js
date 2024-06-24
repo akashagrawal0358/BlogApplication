@@ -3,7 +3,7 @@
 const express = require('express');
 const { signupUser, loginUser } = require('../controller/userController');
 const { uploadImage , getImage} = require('../controller/ImageController');
-const { createPost } = require('../controller/post-controller');
+const { createPost, getAllPosts } = require('../controller/post-controller');
 const { authenticateToken } = require('../controller/jwt-controller');
 
 const upload = require('../utils/upload');
@@ -32,7 +32,9 @@ router.get('/file/:filename' , getImage) ;
 
 // authenticateToken in jwt-controller
 // createPost in  post-controller
-router.post('/create' , authenticateToken,  createPost);
+router.post('/create' , authenticateToken,  createPost );
+router.get('/posts' , authenticateToken,  getAllPosts );
+
 
 
 module.exports = router;

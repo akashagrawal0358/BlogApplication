@@ -12,3 +12,23 @@ module.exports.createPost = async (request, response) => {
         return response.status(500).json(error);
     }
 }    
+
+
+
+module.exports.getAllPosts = async (request, response) => {
+    let username = request.query.username;
+    let category = request.query.category;
+    let posts;
+    try {
+        if(username) 
+            posts = await Post.find({ username: username });
+        else if (category) 
+            posts = await Post.find({ categories: category });
+        else 
+            posts = await Post.find({});
+            
+        response.status(200).json(posts);
+    } catch (error) {
+        response.status(500).json(error)
+    }
+}
