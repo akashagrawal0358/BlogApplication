@@ -37,7 +37,7 @@ const Posts = () => {
                 // posts state contains array of post
                 posts?.length ? posts.map(post => (
                     <Grid item lg={3} sm={4} xs={12}>
-                        <Link style={{textDecoration: 'none', color: 'inherit'}} to={`details/${post._id}`}>
+                        <Link to={`details/${post._id}` } style={{textDecoration: 'none', color: 'inherit'}} >
                             {/* post data passed to Post component  */}
                             <Post post={post} />
                         </Link>
