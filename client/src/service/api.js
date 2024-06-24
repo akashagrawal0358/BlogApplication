@@ -21,6 +21,14 @@ axiosInstance.interceptors.request.use(
         if (config.data instanceof FormData) {
             config.headers['Content-Type'] = 'multipart/form-data';
         }
+        
+        if (config.TYPE.params) {
+            config.params = config.TYPE.params
+        } else if (config.TYPE.query) {
+            config.url = config.url + '/' + config.TYPE.query;
+        }
+
+
         return config;
     },
     function(error) {
@@ -93,6 +101,9 @@ for (const [key, value] of Object.entries(SERVICE_URLS)) {
                 authorization: getAccessToken() 
 
             },
+            // defined in utils/common-utils
+            // this checks type --> is param or query
+            TYPE: getType(value, body),
             onUploadProgress: function(progressEvent) {
                 if (showUploadProgress) {
                     let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);

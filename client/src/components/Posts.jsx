@@ -17,6 +17,8 @@ const Posts = () => {
     const [posts, getPosts] = useState([]);
     
     const [searchParams] = useSearchParams();
+
+    // Helps in showing the post according to the category selected
     const category = searchParams.get('category');
 
     useEffect(() => {
