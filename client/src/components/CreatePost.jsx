@@ -98,10 +98,14 @@ const CreatePost = () => {
         }));
     }, [file]);
 
+
+   //  for saving the post in db
     const savePost = async () => {
         await API.createPost(post);
         navigate('/');
     }
+
+
 
     const handleChange = (e) => {
         setPost({ ...post, [e.target.name]: e.target.value });
