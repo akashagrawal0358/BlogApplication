@@ -5,6 +5,7 @@ const { signupUser, loginUser } = require('../controller/userController');
 const { uploadImage , getImage} = require('../controller/ImageController');
 const { createPost, getAllPosts, getPost, updatePost, deletePost } = require('../controller/post-controller');
 const { authenticateToken } = require('../controller/jwt-controller');
+const { newComment } = require('../controller/comment-controller');
 
 const upload = require('../utils/upload');
 
@@ -39,7 +40,7 @@ router.get('/post/:id', authenticateToken, getPost );
 router.put('/update/:id', authenticateToken, updatePost );
 router.delete('/delete/:id', authenticateToken, deletePost );
 
-
+router.post('/comment/new' , authenticateToken , newComment);
 
 
 module.exports = router;

@@ -7,7 +7,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { API } from '../service/api';
 
 import { DataContext } from '../context/DataProvider';
-import Comments from './Comment';
+import Comments from './Comments';
 
 
 
@@ -59,7 +59,8 @@ const Author = styled(Box)(({ theme }) => ({
 
 const DetailView = () => {
     const url = 'https://images.unsplash.com/photo-1543128639-4cb7e6eeef1b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGFwdG9wJTIwc2V0dXB8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80';
-
+    
+    // post state stores data of the post
     const [post, setPost] = useState({});
     const { account } = useContext(DataContext);
 
@@ -112,6 +113,8 @@ const DetailView = () => {
             </Author>
 
             <Typography>{post.description}</Typography>
+
+            {/* post is passed to get info. of post  so that comment can be fetched*/}
             <Comments post={post} />
         </Container>
     )
