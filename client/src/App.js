@@ -9,7 +9,7 @@ import DataProvider from './context/DataProvider';
 import Home from './components/Home';
 import CreatePost from './components/CreatePost';
 import DetailView from './components/DetailView';
-// import Update from './components/create/Update';
+import Update from './components/Update';
 // import About from './components/about/About';
 // import Contact from './components/contact/Contact';
 import Login from './components/Login';
@@ -67,6 +67,9 @@ function App() {
           <Route path='/details/:id' element={<PrivateRoute isAuthenticated={isAuthenticated} />} >
             <Route path='/details/:id' element={<DetailView />} />
           </Route>
+          <Route path='/update/:id' element={<PrivateRoute isAuthenticated={isAuthenticated} />} >
+            <Route path='/update/:id' element={<Update />} />
+          </Route>
 
           </Routes>
 
@@ -77,9 +80,6 @@ function App() {
 
 
 
-            <Route path='/update/:id' element={<PrivateRoute isAuthenticated={isAuthenticated} />} >
-              <Route path='/update/:id' element={<Update />} />
-            </Route>
 
             <Route path='/about' element={<PrivateRoute isAuthenticated={isAuthenticated} />} >
               <Route path='/about' element={<About />} />
