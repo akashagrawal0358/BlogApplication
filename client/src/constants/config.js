@@ -25,7 +25,6 @@ export const API_NOTIFICATION_MESSAGES = {
 }
 
 // API SERVICE URL
-// SAMPLE REQUEST
 // NEED SERVICE CALL: { url: "/", method: "POST/GET/PUT/DELETE" }
 export const SERVICE_URLS = {
     userSignup: { url: '/signup', method: 'POST' },
@@ -39,5 +38,9 @@ export const SERVICE_URLS = {
     deletePost : { url: 'delete', method: 'DELETE', query: true },
 
     //  Add a new Comment in database 
-    newComment: {url: '/comment/new', method: 'POST'}
+    newComment: {url: '/comment/new', method: 'POST' },
+    
+    //  Get all comments from database of seleted post
+    getAllComments: { url: 'comments', method: 'GET', query: true },
+    deleteComment: {url: 'comment/delete' , method: 'DELETE' , query: true }
 }

@@ -18,9 +18,9 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
     function(config) {
         // Adjust headers if sending FormData
-        if (config.data instanceof FormData) {
-            config.headers['Content-Type'] = 'multipart/form-data';
-        }
+        // if (config.data instanceof FormData) {
+        //     config.headers['Content-Type'] = 'multipart/form-data';
+        // }
         
         if (config.TYPE.params) {
             config.params = config.TYPE.params

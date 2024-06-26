@@ -73,7 +73,7 @@ const DetailView = () => {
             let response = await API.getPostById(id);
             if (response.isSuccess) {
                 setPost(response.data);
-            }
+            } 
         }
         fetchData();
     }, []);

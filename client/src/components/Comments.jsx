@@ -41,10 +41,27 @@ const Comments = ({ post }) => {
     const url = 'https://static.thenounproject.com/png/12017-200.png'
 
     const [comment, setComment] = useState(initialValue);
-   
+
+    // Stores all comments
+    const [comments, setComments] = useState([]);
+
+    // used to re-render the component to show comment of user immediately
     const [toggle, setToggle] = useState(false);
 
     const { account } = useContext(DataContext);
+
+
+    useEffect(() => {
+        const getData = async () => {
+            const response = await API.getAllComments(post._id);
+            if (response.isSuccess) {
+                setComments(response.data);
+            }
+        }
+        if(post._id){
+            getData();
+         }
+    }, [toggle, post]);
 
 
 
@@ -86,6 +103,14 @@ const Comments = ({ post }) => {
                     onClick={(e) => addComment(e)}
                 >Post</Button>             
             </Container>
+            <Box>
+                {
+                    comments && comments.length > 0 && comments.map(comment => (
+                        // pass value of comment as props
+                        <Comment comment={comment} setToggle={setToggle} />
+                    ))
+                }
+            </Box>
         </Box>
     )
 }
