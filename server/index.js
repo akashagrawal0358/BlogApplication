@@ -18,7 +18,7 @@ app.use('/', Router);
 
 
 
-const PORT = 8000; 
+const PORT =  process.env.PORT || 8000; 
 const username = process.env.DB_username;
 const password = process.env.DB_password;
 dbConn(username, password);

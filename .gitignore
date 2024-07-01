@@ -7,7 +7,7 @@ node_modules/
 # Build Output
 build/
 dist/
-public/
+
 
 # User-Specific Files
 .vscode/
