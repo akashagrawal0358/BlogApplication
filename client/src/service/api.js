@@ -5,7 +5,10 @@ import { getAccessToken, getRefreshToken, setAccessToken, getType } from '../uti
 
 
 
-const API_URL = 'http://localhost:8000';
+// const API_URL = 'http://localhost:8000';
+
+// For deployment of application
+const API_URL = 'https://blogworld-backend-qm71.onrender.com';
 
 const axiosInstance = axios.create({
     baseURL: API_URL,
